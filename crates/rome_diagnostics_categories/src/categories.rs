@@ -66,6 +66,7 @@ define_dategories! {
     "lint/nursery/noVoidTypeReturn": "https://docs.rome.tools/lint/rules/noVoidTypeReturn",
     "lint/nursery/useAriaPropsForRole": "https://docs.rome.tools/lint/rules/useAriaPropsForRole",
     "lint/nursery/useAriaPropTypes": "https://docs.rome.tools/lint/rules/useAriaPropTypes",
+    "lint/nursery/useAwait": "https://docs.rome.tools/lint/rules/useAwait",
     "lint/nursery/useCamelCase": "https://docs.rome.tools/lint/rules/useCamelCase",
     "lint/nursery/useConst":"https://docs.rome.tools/lint/rules/useConst",
     "lint/nursery/useDefaultParameterLast":"https://docs.rome.tools/lint/rules/useDefaultParameterLast",

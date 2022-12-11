@@ -1,0 +1,243 @@
+---
+source: crates/rome_js_analyze/tests/spec_tests.rs
+assertion_line: 92
+expression: invalid.js
+---
+# Input
+```js
+async function foo() {
+	doSomething();
+}
+
+(async function () {
+	doSomething();
+});
+
+async () => {
+	doSomething();
+};
+
+async () =>
+	doSomething()({
+		async foo() {
+			doSomething();
+		},
+	});
+
+class A {
+	async foo() {
+		doSomething();
+	}
+}
+
+(class {
+	async foo() {
+		doSomething();
+	}
+})(
+	class {
+		async ""() {
+			doSomething();
+		}
+	},
+);
+
+async function foo() {
+	async () => {
+		await doSomething();
+	};
+}
+
+async function foo() {
+	await (async () => {
+		doSomething();
+	});
+}
+
+const foo = async () => {
+	console.log();
+}
+
+```
+
+# Diagnostics
+```
+invalid.js:1:1 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+  > 1 │ async function foo() {
+      │ ^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ 	doSomething();
+  > 3 │ }
+      │ ^
+    4 │ 
+    5 │ (async function () {
+  
+
+```
+
+```
+invalid.js:5:2 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    3 │ }
+    4 │ 
+  > 5 │ (async function () {
+      │  ^^^^^^^^^^^^^^^^^^^
+  > 6 │ 	doSomething();
+  > 7 │ });
+      │ ^
+    8 │ 
+    9 │ async () => {
+  
+
+```
+
+```
+invalid.js:9:1 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+     7 │ });
+     8 │ 
+   > 9 │ async () => {
+       │ ^^^^^^^^^^^^^
+  > 10 │ 	doSomething();
+  > 11 │ };
+       │ ^
+    12 │ 
+    13 │ async () =>
+  
+
+```
+
+```
+invalid.js:13:1 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    11 │ };
+    12 │ 
+  > 13 │ async () =>
+       │ ^^^^^^^^^^^
+  > 14 │ 	doSomething()({
+  > 15 │ 		async foo() {
+  > 16 │ 			doSomething();
+  > 17 │ 		},
+  > 18 │ 	});
+       │ 	^^
+    19 │ 
+    20 │ class A {
+  
+
+```
+
+```
+invalid.js:21:2 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    20 │ class A {
+  > 21 │ 	async foo() {
+       │ 	^^^^^^^^^^^^^
+  > 22 │ 		doSomething();
+  > 23 │ 	}
+       │ 	^
+    24 │ }
+    25 │ 
+  
+
+```
+
+```
+invalid.js:27:2 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    26 │ (class {
+  > 27 │ 	async foo() {
+       │ 	^^^^^^^^^^^^^
+  > 28 │ 		doSomething();
+  > 29 │ 	}
+       │ 	^
+    30 │ })(
+    31 │ 	class {
+  
+
+```
+
+```
+invalid.js:32:3 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    30 │ })(
+    31 │ 	class {
+  > 32 │ 		async ""() {
+       │ 		^^^^^^^^^^^^
+  > 33 │ 			doSomething();
+  > 34 │ 		}
+       │ 		^
+    35 │ 	},
+    36 │ );
+  
+
+```
+
+```
+invalid.js:38:1 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    36 │ );
+    37 │ 
+  > 38 │ async function foo() {
+       │ ^^^^^^^^^^^^^^^^^^^^^^
+  > 39 │ 	async () => {
+  > 40 │ 		await doSomething();
+  > 41 │ 	};
+  > 42 │ }
+       │ ^
+    43 │ 
+    44 │ async function foo() {
+  
+
+```
+
+```
+invalid.js:45:9 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    44 │ async function foo() {
+  > 45 │ 	await (async () => {
+       │ 	       ^^^^^^^^^^^^^
+  > 46 │ 		doSomething();
+  > 47 │ 	});
+       │ 	^
+    48 │ }
+    49 │ 
+  
+
+```
+
+```
+invalid.js:50:13 lint/nursery/useAwait ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Async function has no await expression.
+  
+    48 │ }
+    49 │ 
+  > 50 │ const foo = async () => {
+       │             ^^^^^^^^^^^^^
+  > 51 │ 	console.log();
+  > 52 │ }
+       │ ^
+    53 │ 
+  
+
+```
+
+

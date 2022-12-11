@@ -386,6 +386,10 @@ export interface Nursery {
 	 */
 	useAriaPropsForRole?: RuleConfiguration;
 	/**
+	 * Disallow async functions which have no await expression.
+	 */
+	useAwait?: RuleConfiguration;
+	/**
 	 * Enforce camel case naming convention.
 	 */
 	useCamelCase?: RuleConfiguration;
@@ -714,6 +718,7 @@ export type Category =
 	| "lint/nursery/noVoidTypeReturn"
 	| "lint/nursery/useAriaPropsForRole"
 	| "lint/nursery/useAriaPropTypes"
+	| "lint/nursery/useAwait"
 	| "lint/nursery/useCamelCase"
 	| "lint/nursery/useConst"
 	| "lint/nursery/useDefaultParameterLast"
